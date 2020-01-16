@@ -1,0 +1,19 @@
+<template>
+    <lightning-card title="SyteLine CPQ Estimate" icon-name="custom:custom16">
+
+            <!-- <lightning-button variant="brand" label="Syteline Estimate" title="View or Create a Syteline Estimate" onclick={validateSytelineEstimate} ></lightning-button> -->
+            <lightning-button variant="brand" label="Syteline Estimate" title="View or Create a Syteline Estimate" ></lightning-button>
+            <div class="slds-m-around_medium">
+                Opp Id - {recordId}
+            </div>
+        <template if:true={estimateExists}>
+                <div class="slds-m-around_medium">
+                    SyteLine Opp Num - {syteLineOppNum}
+                </div>
+            <!-- <lightning-button variant="brand" label="Go To Estimate" title="Go to the existing estimate in Syteline" onclick={goToEstimate} ></lightning-button> -->
+            <lightning-button variant="brand" label="Go To Estimate" title="Go to the existing estimate in Syteline" ></lightning-button>
+        </template>
+        <!-- <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate in Syteline" onclick={createEstimate} ></lightning-button>   -->
+        <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate in Syteline"></lightning-button>  
+    </lightning-card>
+</template>

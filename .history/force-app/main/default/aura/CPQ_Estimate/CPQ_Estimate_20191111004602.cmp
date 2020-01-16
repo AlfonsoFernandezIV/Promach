@@ -1,0 +1,5 @@
+<aura:component implements="flexipageflexipage:availableForAllPageTypes, forceforce:hasRecordId, lightning:actionOverride">
+    <lightning-card title="SytelineCPQEstimate">
+        <c:sytelineEstimateCallout recordId="{!v.recordId}" name="opportunityId" />
+    </lightning-card>
+</aura:component>

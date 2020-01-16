@@ -1,0 +1,3 @@
+<aura:component implements="flexipageflexipage:availableForAllPageTypes, force:hasRecordId, lightning:actionOverride">
+        <c:sytelineEstimateCallout recordId="{!v.recordId}" name="opportunityId" />
+</aura:component>

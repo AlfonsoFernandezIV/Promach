@@ -1,0 +1,86 @@
+public without sharing class AccountProfileTriggerHandler {
+
+    public static void createAcctProfileSharingRules(Map<Id, Account_Profile__c> apMap){
+        System.debug('In createAcctProfileSharingRules method ');
+        List<Account_Profile__c> apList = new List<Account_Profile__c>();
+
+        apList = [SELECT Id, Account__c, Account__r.ShippingPostalCode, OwnerId FROM Account_Profile__c WHERE Id IN: apMap.keySet()];
+        System.debug('apList ' + apList);
+
+        zipMgmtMap = getZipMgmtMap(contactWithAcctInfo);
+        insertAccProfShares(apList, zipMgmtMap);
+    }
+
+    public static void createSharingRules(Map<Id, Account_Profile__c> accProfileMap, Map<Id, Account_Profile__c> oldAccProfileMap, Boolean isInsert, Boolean isUpdate){
+        System.debug('In createSharingRules method');
+        Map<Id, Account> accountMap = new Map<Id, Account>();
+
+        if(isInsert){
+            accountMap = getAccProfileAccountIds(accProfileMap);
+            AccountUtils.createAccountSharing(accountMap);
+        }
+        if(isUpdate){
+            for(Account_Profile__c ap : accProfileMap.values()){
+                Account_Profile__c oldAP = oldAccProfileMap.get(ap.Id);
+                if(ap.OwnerId != oldAP.OwnerId || ap.AccountId__c != oldAP.AccountId__c){
+                    accountMap = getAccProfileAccountIds(accProfileMap);
+                    AccountUtils.createAccountSharing(accountMap);
+                }
+            }
+        }
+    }
+
+    /* public static Map<Id, Account> getAccProfileAccountIds(Map<Id, Account_Profile__c> accProfileMap){
+        System.debug('In getAccProfileAccountIds method' + accProfileMap);
+        Set<Id> accountIds = new Set<Id>();
+        Map<Id, Account> accountMap = new Map<Id, Account>();
+
+        for(Account_Profile__c ap : accProfileMap.values()){
+            accountIds.add(ap.Account__c);
+        }
+        System.debug('accountIds ' + accountIds);
+        accountMap = getAccountMap(accountIds);
+        return accountMap;
+     }
+
+     public static Map<Id, Account> getAccountMap(Set<Id> accountIds){
+        System.debug('In getAccountMap method');
+        List<Account> accountList = new List<Account>();
+        Map<Id, Account> accountMap = new Map<Id, Account>();
+
+        accountList = [SELECT Id, OwnerId, ShippingPostalCode FROM Account WHERE Id IN: accountIds];
+
+        for(Account acc : accountList){
+            accountMap.put(acc.Id, acc);
+        }
+        System.debug('accountMap ' + accountMap);
+        return accountMap;
+    } */
+
+    public static void insertAccProfShares(List<Account_Profile__c> aps, Map<String, Zip_Postal_Code_Management__c> zipMgmtMap){
+        System.debug('In insertAccProfShares ');
+        List<Account_Profile__Share> apShares = new List<Account_Profile__Share>();
+
+        for(Account_Profile__c ap : aps){
+            String rawZip = con.Account__r.ShippingPostalCode;
+            String formatZip = formatZip(rawZip);
+            if(ap.Brand2__c == 'IDT'){
+                Account_Profile__Share acctProfileShare = new Account_Profile__Share();
+                acctProfileShare.ParentId = ap.Id;  // Set the ID of record being shared
+                acctProfileShare.UserOrGroupId = zipMgmtMap.get(zip).User__c;    // Set the ID of user or group being granted access
+                acctProfileShare.AccessLevel = 'Edit';   // Set the access level
+                acctProfileShare.RowCause = Schema.Account_Profile__Share.RowCause.Manual;    // Set the Apex sharing reason for hiring manager and recruiter
+                apShares.add(acctProfileShare);
+            } else {
+                Account_Profile__Share acctProfileShare = new Account_Profile__Share();
+                acctProfileShare.ParentId = ap.Id;  // Set the ID of record being shared
+                acctProfileShare.UserOrGroupId = zipMgmtMap.get(zip).User__c;    // Set the ID of user or group being granted access
+                acctProfileShare.AccessLevel = 'Read';   // Set the access level
+                acctProfileShare.RowCause = Schema.Account_Profile__Share.RowCause.Manual;    // Set the Apex sharing reason for hiring manager and recruiter
+                apShares.add(acctProfileShare);
+            }
+        }
+        System.debug('apShares ' + apShares);
+        insert apShares;
+    }
+}

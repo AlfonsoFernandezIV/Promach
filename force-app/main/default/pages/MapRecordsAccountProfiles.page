@@ -1,0 +1,1 @@
+<apex:page label="Map Records" standardController="Account_Profile__c" recordSetVar="records" action="{!mapRecords}" extensions="geopointe.MapRecordsExtension"> <apex:pageMessages id="pageMessageError"/> </apex:page>

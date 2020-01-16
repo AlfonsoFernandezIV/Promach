@@ -1,0 +1,10 @@
+<aura:component implements="flexipage:availableForAllPageTypes, force:hasRecordId, force:lightningQuickAction">
+    
+<aura:handler name="change" value="{!v.recordId}" action="{!c.onRecordIdChange}"/>
+
+    <c:sytelineEstimateCallout 
+        recordId-id="{!v.recordId}" 
+        objectApi="{!v.ObjectApiName}" 
+        onmyevent="{!c.handleEvent}">
+    </c:sytelineEstimateCallout>
+</aura:component>

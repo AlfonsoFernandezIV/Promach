@@ -1,0 +1,20 @@
+<apex:page standardController="Account" extensions="TableauAccountController">
+<apex:canvasApp applicationName="Sparkler_Connector" 
+    height="830px" 
+    width="100%"
+    border="0" 
+    rendered="true"
+    parameters="
+    {
+        'ts.javascriptLib': 'https://tableau.promachbuilt.com/javascripts/api/viz_v1.js',
+        'ts.height': '830',
+        'ts.width': '98%',
+        'ts.hostUrl': 'https://tableau.promachbuilt.com/',
+        'ts.name': 'Salesforce_AccountSalesEmbed_DEMO/InstallBase',
+        'ts.tabs': 'no',
+        'ts.toolbar': 'no',
+        'ts.trustedTicket.host': 'tableau.promachbuilt.com',
+        'ts.trustedTicket.signedIdentity':'{!signedIdentity}',
+        'ts.filter': 'ShipToDuns={!Account.DUNS_Number__c}',
+    }" />
+</apex:page>

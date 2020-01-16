@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ApexPage xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>45.0</apiVersion>
+    <availableInTouch>true</availableInTouch>
+    <confirmationTokenRequired>false</confirmationTokenRequired>
+    <description>Historical multi-division sales metrics to be embedded inside the Account page using the ship to duns as a filter.</description>
+    <label>AccountSalesEmbed</label>
+</ApexPage>

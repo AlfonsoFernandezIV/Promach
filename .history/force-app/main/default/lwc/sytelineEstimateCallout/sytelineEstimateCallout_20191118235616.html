@@ -1,0 +1,38 @@
+<template>
+    <lightning-card title="SyteLine CPQ Estimate"> 
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-card title="Syteline Actions">
+                    <lightning-button variant="brand" label="Verify Estimate" title="Verify there is an estimate" onclick={checkEstimate} ></lightning-button>
+                    
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-card title="View Syteline Fields">
+                    <lightning-record-view-form record-id={recordId} object-api-name="Opportunity">
+                    <!--<div class="slds-box"> -->
+                            <template if:true={estimateDoesNotExist}>
+                                <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate" onclick={createEstimate} ></lightning-button>
+                            </template>
+                            <template if:true={estimateExists}>
+                                <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate" onclick={createEstimate} ></lightning-button>
+                                <br/>
+                                <lightning-button variant="brand" label="Go To Estimate" title="Go to the existing estimate" onclick={goToEstimate} ></lightning-button>
+                            </template>
+                    <!--     </div> -->
+                    </lightning-record-view-form>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+            <!-- <lightning-button variant="brand" label="Check Syteline Estimate" title="Check if an existing estimate in Syteline" onclick={checkEstimateExists} ></lightning-button>           -->
+        <!-- <template if:true={estimateExists}>
+            <p>Syteline Estimate Exists</p>
+            <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate in Syteline" onclick={createEstimate} ></lightning-button>
+            <lightning-button variant="brand" label="Go To Estimate" title="Go to the existing estimate in Syteline" onclick={goToEstimate} ></lightning-button>
+        </template>
+        <template if:false={estimateExists}>
+            <p>No Syteline Estimate found</p>
+            <lightning-button variant="brand" label="Create New Estimate" title="Create a new estimate in Syteline" onclick={createEstimate} ></lightning-button>
+        </template> -->
+    </lightning-card>
+</template>

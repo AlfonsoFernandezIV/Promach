@@ -1,0 +1,28 @@
+<template>
+    <lightning-card title="Syteline CPQ Estimates"> 
+        <template if:true={showLoadingSpinner}>
+            <lightning-spinner alternative-text="Uploading......" size="medium"></lightning-spinner>
+        </template>
+        <div>
+                <template if:false={estimateExists}>
+                    <p style="padding: 0px 15px 0px 15px">No estimates exist for this Opportunity</p>
+                </template>
+        </div>
+        <lightning-layout>
+            <lightning-layout-item size="6" padding="around-small">
+                <lightning-card title="">
+                    <lightning-button variant="brand" label="New Estimate" title="Create a new estimate" onclick={createAnEstimate} ></lightning-button>
+                </lightning-card>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" padding="around-medium">
+                <lightning-card title="">
+                    <lightning-record-view-form record-id={recordId} object-api-name="Opportunity">
+                        <template if:true={estimateExists}>
+                            <lightning-button variant="brand" label="Go To Estimates" title="Go to the existing estimate" onclick={goToEstimate} ></lightning-button>
+                        </template>
+                    </lightning-record-view-form>
+                </lightning-card>
+            </lightning-layout-item>
+        </lightning-layout>
+    </lightning-card>
+</template>

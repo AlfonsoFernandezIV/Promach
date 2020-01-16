@@ -1,0 +1,4 @@
+<apex:page standardController="Account" showheader="false" sidebar="false">
+  <apex:iframe src="https://tableau.promachbuilt.com/t/Salesforce/views/SimilarAccountsBetaProd/SimilarAccounts?:embed=yes&:tabs=no&:toolbar=no&Ship%20To%20Duns={!Account.DUNS_Number__c}" height="660" width="100%" scrolling="true">
+  </apex:iframe>
+</apex:page>
